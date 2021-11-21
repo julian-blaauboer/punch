@@ -1,0 +1,6 @@
+#!/bin/sh
+
+. tools/check
+
+out="$name-$version"
+rm -rf punch "$out" "$out.tar" "$out.tar.gz" "$out.tar.xz"

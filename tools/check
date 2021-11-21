@@ -1,0 +1,43 @@
+#!/bin/sh
+
+nl='
+'
+
+extract() {
+	sed -n '/^\W*#define\W\W*'"$1"'\W\W*".*"\W*$/s/^.*"\(.*\)".*$/\1/p' config.h
+}
+
+check() {
+	case "$1" in
+		*$nl*) return 1 ;;
+		"") return 1 ;;
+		*) return 0 ;;
+	esac
+}
+
+die() {
+	echo "config.h: $1 is invalid"
+	exit 1
+}
+
+if [ ! -r config.h ]; then
+	echo "config.h: unable to read"
+fi
+
+name=$(extract NAME)
+check "$name" || die NAME
+
+version=$(extract VERSION)
+check "$version" || die VERSION
+
+prefix=$(extract PREFIX)
+check "$prefix" || [ -z "$prefix" ] || die PREFIX
+
+bin_dir=$(extract BIN_DIR)
+check "$bin_dir" || die BIN_DIR
+
+man_dir=$(extract MAN_DIR)
+check "$man_dir" || die MAN_DIR
+
+db_dir=$(extract DB_DIR)
+check "$db_dir" || die DB_DIR

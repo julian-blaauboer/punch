@@ -1,0 +1,59 @@
+.TH PUNCH 1 "2021-11-21"
+.SH NAME
+punch \- a simple punch clock utility
+.SH SYNOPSIS
+.B punch
+.RI "[" OPTION "]..."
+.RB "{ " in " | " out " }"
+.RI "[" tags "]"
+.SH DESCRIPTION
+Append a punch in or punch out entry to the punch file.
+By default, the punch file is only accessible to the root user.
+This prevents unprivileged users from forging or modifying entries.
+.SH OPTIONS
+.HP
+\fB\-f\fR \fIfile\fR, \fB\-\-file\fR=\fIfile\fR
+.IP
+Append to a different file, using this option drops set-user-ID and set-group-ID privileges.
+.HP
+\fB\-c\fR \fIcomment\fR, \fB\-\-comment\fR=\fIcomment\fR
+.IP
+Set the comment field in the entry, the comment field is left blank by default.
+.HP
+\fB\-V\fR, \fB\-\-version\fR
+.IP
+Display the version information and exit.
+.HP
+\fB\-h\fR, \fB\-\-help\fR
+.IP
+Display the help message and exit.
+.SH ENTRY FORMAT
+.TS
+box tab(@) center;
+cB | cB | cB
+lI | l | l.
+Name@Description@Example
+_
+timestamp@Integer numbers of seconds since the Epoch.@1529704800
+_
+action@Type of action, either "in" or "out".@in
+_
+tags@Optional tags.@projects/hello
+_
+comment@Optional comment.@Started working on hello.
+.TE
+.PP
+.ce 1
+\fBFigure 1: \fBEntry format as produced by \fIpunch\fB\fR
+.PP
+Fields are seperated by a single tab character (\fB'\\t'\fR), entries are seperated by a single newline character (\fB'\\n'\fR).
+Because there is no way to escape these characters, using them inside fields is forbidden.
+Although not required, it is recommended that tags are comma-seperated and do not contain whitespace.
+.SH AUTHOR
+Written by Julian Blaauboer.
+.SH COPYRIGHT
+Copyright \(co 2021 Julian Blaauboer
+.PP
+\fIpunch\fR is licensed under the MIT license.
+For the full license, see the "LICENSE" file in the source distribution.
+The source code can also be found at https://github.com/julian-blaauboer/punch.

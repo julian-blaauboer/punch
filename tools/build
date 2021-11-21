@@ -1,0 +1,6 @@
+#!/bin/sh
+set -e
+
+. tools/check
+
+"${CC:-gcc}" -O2 -ansi -pedantic -Wall -Werror -o punch punch.c

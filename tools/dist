@@ -1,0 +1,24 @@
+#!/bin/sh
+
+. tools/check
+
+out="$name-$version"
+
+[ -d "$out" ] || mkdir "$out"
+cp -r punch.c config.h punch.1 README.md LICENSE tools "$out"
+
+case "$1" in
+	"none")
+		tar -czf "$out.tar" "$out"
+		;;
+	"" | "gz" | "gzip")
+		tar -czf "$out.tar.gz" "$out"
+		;;
+	"xz")
+		tar -cJf "$out.tar.xz" "$out"
+		;;
+	*)
+		echo "invalid compression type"
+		exit 1
+		;;
+esac
