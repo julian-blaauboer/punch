@@ -12,7 +12,13 @@ compiler.
 
 ## Building and installing
 
-First, check [config.h](config.h) and make any changes as necessary.
+First, check [config.h](config.h) and make any changes as necessary. It is also
+possible to use the [reconfigure](tools/reconfigure) script to edit a
+`#define` inside [config.h](config.h), which can be useful for packaging:
+
+```sh
+tools/reconfigure PREFIX /usr/local
+```
 
 Compiling punch can be as simple as doing:
 

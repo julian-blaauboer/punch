@@ -1,0 +1,17 @@
+#!/bin/sh
+set -e
+
+if [ $# -ne 2 ]; then
+	echo "usage: $0 key value"
+	exit 1
+fi
+
+. tools/check
+
+if ! grep -q '^\W*#define\W\W*'"$1"'\W\W*".*"\W*$' config.h; then
+	echo "config.h: key not found"
+	exit 1
+fi
+
+mv config.h config.h.old
+sed '\|^\W*#define\W\W*'"$1"'\W\W*".*"\W*$|s|".*"|"'"$2"'"|' config.h.old > config.h
